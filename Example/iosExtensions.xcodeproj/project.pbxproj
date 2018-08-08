@@ -30,10 +30,10 @@
 /* Begin PBXFileReference section */
 		11A438C5521C9594F7170AE3 /* Pods-iosExtensions_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosExtensions_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-iosExtensions_Example/Pods-iosExtensions_Example.release.xcconfig"; sourceTree = "<group>"; };
 		1D59434AAF54A4C2BF797205 /* Pods-iosExtensions_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosExtensions_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iosExtensions_Example/Pods-iosExtensions_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		22B3C1788952169577EF7580 /* iosExtensions.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = iosExtensions.podspec; path = ../iosExtensions.podspec; sourceTree = "<group>"; };
-		40C72051DE104DB111A5B04D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		22B3C1788952169577EF7580 /* iosExtensions.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = iosExtensions.podspec; path = ../iosExtensions.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		40C72051DE104DB111A5B04D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		51076439C46272B593200602 /* Pods_iosExtensions_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosExtensions_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		575B726397A31A2771051AEC /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		575B726397A31A2771051AEC /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* iosExtensions_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosExtensions_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -304,10 +304,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-iosExtensions_Example/Pods-iosExtensions_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/iosExtensions/iosExtensions.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iosExtensions.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

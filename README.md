@@ -22,7 +22,7 @@ pod 'iosExtensions'
 
 ## Author
 
-islam elshazly, islam.elshazly@areebgroup.com
+islam elshazly, islam.elshazly92@gmail.com
 
 ## License
 
