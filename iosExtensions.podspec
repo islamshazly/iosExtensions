@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'iosExtensions'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'Utility Lib contains all helper extensions '
 
 # This description is used to generate tags and improve search results.

@@ -22,7 +22,8 @@ pod 'iosExtensions'
 
 ## Author
 
-islam elshazly, islam.elshazly92@gmail.com
+islam elshazly, islam.elshazly92@gmail.com , Twitter : https://twitter.com/elshazly92
+faceBook: https://www.facebook.com/islam.elshazly.9
 
 ## License
 
