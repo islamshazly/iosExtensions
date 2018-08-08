@@ -11,8 +11,6 @@ import UIKit
 extension UIColor {
     
     open class var oshadow: UIColor { return UIColor(red: 117 / 255.0, green: 115 / 255.0, blue: 121 / 255.0, alpha: 1) }
-    
-    
     open class var oDark: UIColor { return UIColor(red: 21 / 255.0, green: 38 / 255.0, blue: 42 / 255.0, alpha: 1) }
     
     open class var oOrange: UIColor { return UIColor(red: 255 / 255.0, green: 112 / 255.0, blue: 0 / 255.0, alpha: 1) }
@@ -43,7 +41,6 @@ extension UIColor {
             G: CGFloat((hex >> 08) & 0xff) / 255,
             B: CGFloat((hex >> 00) & 0xff) / 255
         )
-        
         self.init(red: components.R, green: components.G, blue: components.B, alpha: 1)
     }
     

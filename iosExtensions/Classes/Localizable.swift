@@ -46,16 +46,15 @@ enum Language: String {
                 return language
             } else {
                 let preferredLanguage = NSLocale.preferredLanguages[0] as String
-                let index = preferredLanguage.index(
+                _ = preferredLanguage.index(
                     preferredLanguage.startIndex,
                     offsetBy: 2
                 )
                 guard let localization = Language(
-                    rawValue: preferredLanguage.substring(to: index)
+                    rawValue: preferredLanguage
                     ) else {
                         return Language.english
                 }
-                
                 return localization
             }
         }

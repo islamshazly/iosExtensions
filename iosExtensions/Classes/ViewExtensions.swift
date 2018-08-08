@@ -1,86 +1,91 @@
 import UIKit
 
+
+enum Shape {
+    case rectangle
+    case rounded(CGFloat)
+    case circular
+}
+
 extension UIView {
     
-
+    @IBInspectable var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+            layer.masksToBounds = newValue > 0
+        }
+    }
     
-  @IBInspectable var cornerRadius: CGFloat {
-    get {
-      return layer.cornerRadius
+    @IBInspectable var borderWidth: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set {
+            layer.borderWidth = newValue
+        }
     }
-    set {
-      layer.cornerRadius = newValue
-      layer.masksToBounds = newValue > 0
+    
+    @IBInspectable var borderColor: UIColor? {
+        get {
+            return self.borderColor
+        }
+        set {
+            layer.borderColor = newValue?.cgColor
+        }
     }
-  }
-  @IBInspectable var borderWidth: CGFloat {
-    get {
-      return layer.borderWidth
+    
+    @IBInspectable var shadowColor: UIColor? {
+        get {
+            return self.shadowColor
+        }
+        set {
+            layer.shadowColor = newValue?.cgColor
+        }
     }
-    set {
-      layer.borderWidth = newValue
+    
+    @IBInspectable var shadowRadius: CGFloat {
+        get {
+            return layer.shadowRadius
+        }
+        set {
+            layer.shadowRadius = newValue
+        }
     }
-  }
-  @IBInspectable var borderColor: UIColor? {
-    get {
-      return self.borderColor
+    
+    @IBInspectable var shadowOpacity: Float {
+        get {
+            return layer.shadowOpacity
+        }
+        set {
+            layer.shadowOpacity = newValue
+        }
     }
-    set {
-      layer.borderColor = newValue?.cgColor
+    
+    @IBInspectable var shadowOffset: CGSize {
+        get {
+            return layer.shadowOffset
+        }
+        set {
+            layer.shadowOffset = newValue
+        }
     }
-  }
-  
-  @IBInspectable var shadowColor: UIColor? {
-    get {
-      return self.shadowColor
+    
+    public func circulerContent() {
+        layer.masksToBounds = true
+        self.clipsToBounds = true
+        self.cornerRadius = self.bounds.height / 2
     }
-    set {
-      layer.shadowColor = newValue?.cgColor
-    }
-  }
-  
-  @IBInspectable var shadowRadius: CGFloat {
-    get {
-      return layer.shadowRadius
-    }
-    set {
-      layer.shadowRadius = newValue
-    }
-  }
-  
-  @IBInspectable var shadowOpacity: Float {
-    get {
-      return layer.shadowOpacity
-    }
-    set {
-      layer.shadowOpacity = newValue
-    }
-  }
-  
-  @IBInspectable var shadowOffset: CGSize {
-    get {
-      return layer.shadowOffset
-    }
-    set {
-      layer.shadowOffset = newValue
-    }
-  }
-  
-  public func circulerContent() {
-    layer.masksToBounds = true
-    self.clipsToBounds = true
-    self.cornerRadius = self.bounds.height / 2
-  }
     
     func fadeIn(withDuration duration : Double) {
-        
         UIView.animate(withDuration: duration) {
             self.alpha = 1
         }
     }
     
     func fadeOut(withDuration duration : Double) {
-        
         UIView.animate(withDuration: duration) {
             self.alpha = 0
         }
@@ -94,46 +99,40 @@ extension UIView {
         self.borderWidth = 1.5
     }
     
-  
-  enum Shape {
-    case rectangle
-    case rounded(CGFloat)
-    case circular
-  }
-  
-  func setShadow(color: UIColor = .black, radius: CGFloat = 2, opacity: Float = 0.15, offset: CGSize = CGSize(width: 0, height: 1)) {
-    shadowColor = color
-    shadowRadius = radius
-    shadowOpacity = opacity
-    shadowOffset = offset
-  }
-  
-  func shadowView(color: UIColor, radius: CGFloat, opacity: Float, offset: CGSize = CGSize(width: 0 , height: 0), shape: Shape) -> UIView {
-    switch shape {
-    case .circular:
-      self.circulerContent()
-    case .rounded(let cornerRadius):
-      self.cornerRadius = cornerRadius
-    default:
-      self.cornerRadius = 0
+    func setShadow(color: UIColor = .black, radius: CGFloat = 2, opacity: Float = 0.15, offset: CGSize = CGSize(width: 0, height: 1)) {
+        shadowColor = color
+        shadowRadius = radius
+        shadowOpacity = opacity
+        shadowOffset = offset
     }
-    let shadowView = UIView()
-    shadowView.frame = self.frame
-    shadowView.layer.shadowColor = color.cgColor
-    shadowView.layer.shadowOffset = offset
-    shadowView.layer.shadowRadius = radius
-    shadowView.layer.shadowOpacity = opacity
-    switch shape {
-    case .rectangle:
-      shadowView.layer.shadowPath = UIBezierPath(rect: shadowView.bounds).cgPath
-    case .circular:
-      shadowView.layer.shadowPath = UIBezierPath(ovalIn: shadowView.bounds).cgPath
-    case .rounded(let cornerRadius):
-      shadowView.layer.shadowPath = UIBezierPath(roundedRect: shadowView.bounds, cornerRadius: cornerRadius).cgPath
+    
+    func shadowView(color: UIColor, radius: CGFloat, opacity: Float, offset: CGSize = CGSize(width: 0 , height: 0), shape: Shape) -> UIView {
+        switch shape {
+        case .circular:
+            self.circulerContent()
+        case .rounded(let cornerRadius):
+            self.cornerRadius = cornerRadius
+        default:
+            self.cornerRadius = 0
+        }
+        
+        let shadowView = UIView()
+        shadowView.frame = self.frame
+        shadowView.layer.shadowColor = color.cgColor
+        shadowView.layer.shadowOffset = offset
+        shadowView.layer.shadowRadius = radius
+        shadowView.layer.shadowOpacity = opacity
+        switch shape {
+        case .rectangle:
+            shadowView.layer.shadowPath = UIBezierPath(rect: shadowView.bounds).cgPath
+        case .circular:
+            shadowView.layer.shadowPath = UIBezierPath(ovalIn: shadowView.bounds).cgPath
+        case .rounded(let cornerRadius):
+            shadowView.layer.shadowPath = UIBezierPath(roundedRect: shadowView.bounds, cornerRadius: cornerRadius).cgPath
+        }
+        shadowView.layer.shadowPath = UIBezierPath(rect: shadowView.bounds).cgPath
+        return shadowView
     }
-    shadowView.layer.shadowPath = UIBezierPath(rect: shadowView.bounds).cgPath
-    return shadowView
-  }
     
     func ostaziShadow() {
         self.layer.shadowOpacity = 0.3
@@ -143,7 +142,7 @@ extension UIView {
         self.layer.cornerRadius = 3
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.clear.cgColor
-//        self.layer.masksToBounds = true
+        //        self.layer.masksToBounds = true
         self.clipsToBounds = false
     }
     
@@ -152,7 +151,6 @@ extension UIView {
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = true
-        
         self.layer.shadowColor = UIColor.lightGray.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 2.0)
         self.layer.shadowRadius = 2.0
@@ -169,10 +167,9 @@ extension UIView {
         self.layer.shadowOpacity = 1
         self.layer.shadowRadius = 2
         self.clipsToBounds = false
-
+        
     }
     func sectionShadow(_ backgroundColor : UIColor) {
-        
         self.layer.cornerRadius = 5
         self.backgroundColor = backgroundColor
         self.layer.shadowOffset = CGSize.zero
@@ -180,15 +177,9 @@ extension UIView {
         self.layer.shadowOpacity = 1
         self.layer.shadowRadius = 2
         self.clipsToBounds = false
-        
-//        self.layer.borderColor = UIColor.lightGray.cgColor
-//        self.layer.borderWidth = 0.5
-        
     }
     
     func tagLabelShadow() {
-        
-
         self.alpha = 0.10
         self.layer.cornerRadius = 8
         self.backgroundColor = UIColor(red:0.87, green:0.71, blue:0.71, alpha:1)
@@ -197,7 +188,6 @@ extension UIView {
         self.layer.shadowOpacity = 1
         self.layer.shadowRadius = 16
         self.clipsToBounds = false
-        
     }
     
     func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {

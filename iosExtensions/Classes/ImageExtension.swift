@@ -2,8 +2,8 @@
 
 
 import UIKit
-import Kingfisher
 import ImageIO
+import Kingfisher
 
 struct ImageHeaderData{
     static var PNG: [UInt8] = [0x89]
@@ -11,32 +11,6 @@ struct ImageHeaderData{
     static var GIF: [UInt8] = [0x47]
     static var TIFF_01: [UInt8] = [0x49]
     static var TIFF_02: [UInt8] = [0x4D]
-}
-
-enum ImageFormat{
-    case Unknown, PNG, JPEG, GIF, TIFF
-}
-
-
-extension NSData{
-    var imageFormat: ImageFormat{
-        var buffer = [UInt8](repeating: 0, count: 1)
-        self.getBytes(&buffer, range: NSRange(location: 0,length: 1))
-        if buffer == ImageHeaderData.PNG
-        {
-            return .PNG
-        } else if buffer == ImageHeaderData.JPEG
-        {
-            return .JPEG
-        } else if buffer == ImageHeaderData.GIF
-        {
-            return .GIF
-        } else if buffer == ImageHeaderData.TIFF_01 || buffer == ImageHeaderData.TIFF_02{
-            return .TIFF
-        } else{
-            return .Unknown
-        }
-    }
 }
 
 
@@ -54,30 +28,7 @@ extension UIImage {
         return UIImageJPEGRepresentation(self, quality.rawValue)
     }
     
-    func imageFormat(_ url : String) -> ImageFormat{
-        let url = URL(string: url)
-        var buffer = [UInt8](repeating: 0, count: 1)
-        let data = NSData(contentsOf: url!)
-        data?.getBytes(&buffer, range: NSRange(location: 0,length: 1))
-        if buffer == ImageHeaderData.PNG
-        {
-            return .PNG
-        } else if buffer == ImageHeaderData.JPEG
-        {
-            return .JPEG
-        } else if buffer == ImageHeaderData.GIF
-        {
-            return .GIF
-        } else if buffer == ImageHeaderData.TIFF_01 || buffer == ImageHeaderData.TIFF_02{
-            return .TIFF
-        } else{
-            return .Unknown
-        }
-        
-    }
-    
     func imageFormatString(_ url : String) -> String{
-        
         let url = URL(string: url)
         var buffer = [UInt8](repeating: 0, count: 1)
         let data = NSData(contentsOf: url!)
@@ -96,9 +47,7 @@ extension UIImage {
         } else{
             return "jpg"
         }
-        
     }
-    
     
     var widthPixel : Int {
         get {
@@ -112,19 +61,15 @@ extension UIImage {
         }
     }
     
-    
     var fileSize :Double  {
         get {
             var imgData =  UIImagePNGRepresentation(self)
-            // var imgData: NSData = UIImagePNGRepresentation(image)
-            // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
             let imageSize: Int = imgData!.count
             return Double(imageSize) / 1024.0
         }
     }
-    //
+
     func resizeImage(newWidth: CGFloat) -> UIImage {
-        
         let scale = newWidth / self.size.width
         let newHeight = self.size.height * scale
         UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
@@ -137,11 +82,8 @@ extension UIImage {
     
     func resizeImage( targetSize: CGSize) -> UIImage {
         let size = self.size
-        
         let widthRatio  = targetSize.width  / size.width
         let heightRatio = targetSize.height / size.height
-        
-        // Figure out what our orientation is, and use that to form the rectangle
         var newSize: CGSize
         if(widthRatio > heightRatio) {
             newSize = CGSize(width: size.width * heightRatio,height: size.height * heightRatio)
@@ -149,10 +91,7 @@ extension UIImage {
             newSize = CGSize(width:size.width * widthRatio,height:  size.height * widthRatio)
         }
         
-        // This is the rect that we've calculated out and this is what is actually used below
         let rect = CGRect(x:0,y: 0,width: newSize.width,height: newSize.height)
-        
-        // Actually do the resizing to the rect using the ImageContext stuff
         UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
         self.draw(in: rect)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -194,7 +133,6 @@ extension UIImage {
         
     }
     
-    
     func encodeImage () -> String {
         let strBase64 = UIImagePNGRepresentation(self)!.base64EncodedString()
         return strBase64
@@ -210,12 +148,12 @@ extension UIImage {
         return nil
     }
     
-    
     func gitToData (_ url : String) -> Data {
         let data = try! Data(contentsOf: URL(string: url)!)
         return data
         
     }
+    
     func imageToDate() -> Data?{
         
         let data = UIImagePNGRepresentation(self)
@@ -240,14 +178,6 @@ extension UIImage {
         return UIImageJPEGRepresentation(self, compressionRate)
     }
     
-    convenience init(view: UIView) {
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
-        view.drawHierarchy(in: view.bounds, afterScreenUpdates: false)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        self.init(cgImage: (image?.cgImage)!)
-    }
-    
     public func image(withTintColor color: UIColor) -> UIImage{
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
         let context: CGContext = UIGraphicsGetCurrentContext()!
@@ -262,11 +192,9 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return newImage
     }
-    
 }
 
 extension UIImageView {
-    
     
     var widthPixel : Int {
         get {
@@ -280,8 +208,6 @@ extension UIImageView {
         }
     }
     
-    
-    
     @IBInspectable var imageTint: UIColor {
         get {
             return tintColor
@@ -289,7 +215,6 @@ extension UIImageView {
         set {
             self.image = self.image!.withRenderingMode(.alwaysTemplate)
             self.tintColor = newValue
-            
         }
     }
     
@@ -301,11 +226,8 @@ extension UIImageView {
         self.alpha = 1
     }
     
-    
     func ShowLoadingOnImage (){
         self.kf.indicatorType = .activity
-        
-        
     }
     
     func changeImageColorTint(_ color : UIColor) {
@@ -315,32 +237,15 @@ extension UIImageView {
     
     
     func imageFromURL( _ url : String , placeHolder : UIImage?) {
-        
-        
         self.kf.setImage(with: URL(string: url), placeholder: placeHolder , options: [.cacheOriginalImage], progressBlock: { (recivedSize,size) in
-            
-            
-            
         }, completionHandler: nil)
-        
-        
-        
     }
     
     func imageFromURL( _ url : String , placeHolder : UIImage? , clouser : @escaping  ((_ error : NSError?) -> ())) {
-        
         self.kf.setImage(with: URL(string: url), placeholder: placeHolder , options: [.cacheOriginalImage], progressBlock: { (recivedSize,size) in
-            
-            
-            
         }, completionHandler: {
             (image, error, cashType, url) in
-            
             clouser(error)
-            
         })
-        
-        
-        
     }
 }

@@ -1,0 +1,28 @@
+{
+  "name": "iosExtensions",
+  "version": "0.1.0",
+  "summary": "Utility Lib contains all helper extensions",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/islam elshazly/iosExtensions",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "islam elshazly": "islam.elshazly92@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/islam elshazly/iosExtensions.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "iosExtensions/Classes/**/*",
+  "frameworks": "UIKit",
+  "dependencies": {
+    "Kingfisher": [
+
+    ]
+  }
+}

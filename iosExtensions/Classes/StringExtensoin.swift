@@ -9,11 +9,6 @@
 import UIKit
 
 extension String {
-//    
-//    var localizedString: String {
-//        return NSLocalizedString(self, comment: "")
-//    }
-    
     
         var youtubeID: String? {
             let pattern = "((?<=(v|V)/)|(?<=be/)|(?<=(\\?|\\&)v=)|(?<=embed/))([\\w-]++)"
@@ -51,11 +46,8 @@ extension String {
     }
     
     func underlinedAttributedString() -> NSAttributedString? {
-        
         return NSAttributedString(string: self, attributes:
             [.underlineStyle: NSUnderlineStyle.styleSingle.rawValue])
-        
-        
     }
     
     func removeSpaces() -> String? {
@@ -84,8 +76,6 @@ extension String {
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
         return boundingBox.width
     }
-    
-    
     /// Calculates string height based on max width and font
     ///
     /// - Parameters:
@@ -127,26 +117,12 @@ extension String {
         }
     }
     
-    
-    func dateFromString() -> Date{
-        
-
-        let date = DateFormatter.OstaziDisplayFormat.date(from:self)!
-        var calendar = Calendar.current
-        calendar.locale = Locale(identifier: "en")
-        let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
-        let finalDate = calendar.date(from:components)
-        return finalDate ?? Date()
-    }
-    
-    
     func multipleFontString(withUniqueText unique: String, uiniqueFont uniqueFont: UIFont, andNormalFont normalFont: UIFont) -> NSAttributedString {
         let string = NSString(string: self)
         let differentRange = string.range(of: unique)
         if differentRange.location != NSNotFound {
             let allAttr = [NSAttributedStringKey.font: normalFont]
             let vodafoneAttr = [NSAttributedStringKey.font: uniqueFont]
-            
             let attributedText = NSMutableAttributedString(string: self, attributes: allAttr)
             attributedText.addAttributes(vodafoneAttr, range: differentRange)
             
@@ -219,23 +195,7 @@ extension String {
         return result
     }
     
-    func isMobileNumber() -> Bool {
-        
-        let emailRegEx = Constants.MOBILE_PATTERN
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        let result = emailTest.evaluate(with: self)
-        return result
-    }
-  
-    func isPassWordSuccess() -> Bool{
-        if self.count >= Constants.PASSWORD_SIZE {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-     func isOnlyEnglishNumber() -> Bool {
+    func isOnlyEnglishNumber() -> Bool {
         
         let aSet = CharacterSet(charactersIn:"0123456789").inverted
         let compSepByCharInSet = self.components(separatedBy: aSet)

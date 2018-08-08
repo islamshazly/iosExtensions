@@ -1,0 +1,6 @@
+framework module iosExtensions {
+  umbrella header "iosExtensions-umbrella.h"
+
+  export *
+  module * { export * }
+}

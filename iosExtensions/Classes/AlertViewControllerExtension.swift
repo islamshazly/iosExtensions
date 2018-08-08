@@ -9,7 +9,7 @@ extension UIAlertController {
     
     typealias SetErrorAction = ((UIAlertAction) -> ())
 
-    class func ShowAlert(VC : UIViewController , error : TError , action : SetErrorAction?)
+    class func ShowAlert(VC : UIViewController , error : NSError , action : SetErrorAction?)
     {
         let alert = UIAlertController(title: "", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
         
